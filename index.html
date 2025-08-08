@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3X3D - 3Д печать фигурок</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Хедер -->
+  <div class="header-wrapper">
+<header>
+  <h1>
+    <img src="logo3x3d.png" alt="3X3D логотип" class="logo-header">
+  </h1>
+  <h3><span class="h3-3x3d">Высокодетализированная 3D печать</span></h3>
+</header>
+
+    </div>
+
+  <!-- Навигация -->
+  <nav class="main-nav">
+    <ul>
+      <li><a href="#" class="nav-link">Главная</a></li>
+      <li><a href="#" class="nav-link">О нас</a></li>
+      <li><a href="#" class="nav-link">Контакты</a></li>
+    </ul>
+  </nav>
+
+  <!-- Карточки товаров -->
+  <div class="card-container">
+
+    <!-- Карточка 1 -->
+    <div class="product-card">
+      <img src="https://media.cgtrader.com/variants/zVvUEwWwvj4awDtiBaUnSRvG/a26e47dab5f2d22c43d6c5ce4b4b46ecc30c70918878397cba1a10c1e35d7bfc/Fly%20Redes%20Sociais%201.jpg" alt="3D модель" class="product-image">
+      <div class="product-info">
+        <h2 class="product-title">X-Men: Wolverine</h2>
+        <p class="product-description">Уникальная 3D-печать космического робота. Высокая детализация, PLA пластик.</p>
+        <p class="product-price">Цена: 2 500 ₽</p>
+        <button class="buy-button">Купить</button>
+      </div>
+    </div>
+
+    <!-- Карточка 2 -->
+    <div class="product-card">
+      <img src="https://netrinoimages.s3.eu-west-2.amazonaws.com/2017/01/23/435571/305876/spider_man_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_3186767.jpg" alt="Товар 1" class="product-image">
+      <div class="product-info">
+        <h2 class="product-title">Человек-Паук 2: Питер Паркер</h2>
+        <p class="product-description">3D печать высокого качества</p>
+        <p class="product-price">2 500 ₽</p>
+        <button class="buy-button">Купить</button>
+      </div>
+    </div>
+
+    <!-- Карточка 3 -->
+    <div class="product-card">
+      <img src="https://p.turbosquid.com/ts-thumb/oZ/T2n9zi/Ld/1/jpg/1637961610/600x600/fit_q87/c37fb151ca3816bd6ed91ff3ebd4fcc2c5ffb9b7/1.jpg" alt="Товар 2" class="product-image">
+      <div class="product-info">
+        <h2 class="product-title">R2D2 дроид</h2>
+        <p class="product-description">Детализированная фигурка</p>
+        <p class="product-price">3 000 ₽</p>
+        <button class="buy-button">Купить</button>
+      </div>
+      
+    </div>
+
+  </div>
+
+  <!-- Иконка входа -->
+  <div class="login-icon" onclick="toggleLoginPopup()">👤</div>
+
+  <!-- Окно логина/регистрации -->
+  <div id="login-popup" class="login-popup">
+    <div class="login-box">
+      <span class="close-btn" onclick="toggleLoginPopup()">×</span>
+      <h2>Вход</h2>
+      <input type="text" placeholder="Логин">
+      <input type="password" placeholder="Пароль">
+      <button>Войти</button>
+      <hr>
+      <h3>Регистрация</h3>
+      <input type="text" placeholder="Новый логин">
+      <input type="password" placeholder="Новый пароль">
+      <button>Зарегистрироваться</button>
+    </div>
+  </div>
+
+  <!-- Футер -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>3X3D</h3>
+        <p>Печать 3D-фигурок на заказ</p>
+      </div>
+      <div class="footer-section">
+        <h4>Контакты</h4>
+        <p>Тел: +7 (999) 123-45-67</p>
+        <p>Email: info@3x3d.ru</p>
+      </div>
+      <div class="footer-section">
+        <h4>Мы в сети</h4>
+        <p><a href="#">ВКонтакте</a> | <a href="#">Telegram</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 3X3D, 2025. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleLoginPopup() {
+      const popup = document.getElementById("login-popup");
+      popup.style.display = (popup.style.display === "flex") ? "none" : "flex";
+    }
+  </script>
+
+</body>
+</html>
