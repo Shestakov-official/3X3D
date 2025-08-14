@@ -1,90 +1,539 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>3X3D - 3Д печать фигурок</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <style>/* === ОБЩИЕ НАСТРОЙКИ === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1a1a1a;
+  color: #f2f2f2;
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+}
+
+/* === ХЕДЕР === */
+.header-wrapper {
+  text-align: center;
+  padding: 40px 20px 20px;
+  background: #222;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.title3X3D {
+  color: #ff50b5;
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.h3-3x3d {
+  color: #45ff5a;
+  margin-bottom: 20px;
+}
+
+/* === НАВИГАЦИЯ === */
+.main-nav {
+  background: linear-gradient(to bottom, #2c2c2c, #1e1e1e);
+  padding: 16px 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.main-nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  list-style: none;
+}
+
+.nav-link {
+  padding: 12px 24px;
+  background-color: #2b2b2b;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 12px;
+  box-shadow: inset 0 -2px 0 rgba(255, 255, 255, 0.05), 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  background-color: #3a3a3a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* === КАРТОЧКИ === */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  max-width: 1300px;
+  margin: 60px auto;
+}
+
+.product-card {
+  display: flex;
+  max-width: 230px;
+  flex-direction: column;
+  background: #2c2c2c;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  color: #fff;
+  transition: transform 0.3s ease;
+  height: auto;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-image {
+  width: 100%;
+  height: 290px;
+  object-fit: contain;
+  object-position: center;
+  background: #1a1a1a;
+  border-bottom: 1px solid #444;
+}
+
+.product-image-wrapper {
+  width: 100%;
+  height: 300px;
+  background: #1a1a1a url('путь_к_картинке') center/cover no-repeat;
+  border-bottom: 1px solid #444;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 20px;
+  flex-grow: 1;
+}
+
+.product-title {
+  font-size: 18px;
+  margin-bottom: 6px;
+  color: #ff50b5;
+}
+
+.product-description {
+  font-size: 14px;
+  color: #ccc;
+  margin-bottom: 12px;
+  flex-grow: 1;
+}
+
+.product-price {
+  font-size: 16px;
+  color: #45ff5a;
+  margin-bottom: 10px;
+}
+
+.buy-button {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  padding: 10px;
+  background: #ff50b5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.buy-button:hover {
+  background: #d83a96;
+}
+
+/* === ИКОНКА ВХОДА === */
+.login-icon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+/* === ВСПЛЫВАЮЩЕЕ ОКНО === */
+.login-popup {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.login-box {
+  background: #222;
+  padding: 30px;
+  border-radius: 12px;
+  width: 300px;
+  color: white;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 6px;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: #45ff5a;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.login-box .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* === ФУТЕР === */
+.site-footer {
+  background: linear-gradient(to top, #1e1e1e, #2c2c2c);
+  color: #ccc;
+  padding: 40px 20px 20px;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3);
+  margin-top: 80px;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.footer-section {
+  min-width: 200px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.footer-section a {
+  color: #ff50b5;
+  text-decoration: none;
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 14px;
+  color: #999;
+  border-top: 1px solid #333;
+  padding-top: 10px;
+}
+
+.logo-header {
+  width: 150px;
+  height: auto;
+  display: flex;
+  margin: 0 auto;
+}
+
+/* === НОВЫЕ ИНФОРМАЦИОННЫЕ БЛОКИ === */
+.info-section {
+  max-width: 1200px;
+  margin: 60px auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+}
+
+.info-card {
+  background: linear-gradient(135deg, #333, #222);
+  padding: 25px 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  color: #f2f2f2;
+  flex: 1 1 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.info-card h3 {
+  font-size: 22px;
+  color: #ff50b5;
+  margin-bottom: 12px;
+}
+
+.info-card p {
+  font-size: 16px;
+  color: #ccc;
+  line-height: 1.5;
+}
+
+.info-card a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 18px;
+  background: #45ff5a;
+  color: #000;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.info-card a:hover {
+  background: #36cc49;
+}
+
+/* === ALERT === */
+.alert-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(90deg, #ff4b5c, #ff9068);
+  color: #fff;
+  padding: 15px 20px;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: bold;
+  border-radius: 12px;
+  margin: 20px auto;
+  max-width: 900px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  animation: pulse 2s infinite alternate;
+}
+
+.alert-banner h2 {
+  font-size: 18px;
+}
+
+.alert-icon {
+  font-size: 24px;
+}
+
+/* Лёгкая анимация пульсации */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.02); }
+}
+
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 768px) {
+  .card-container {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 25px;
+    padding: 0 15px;
+  }
+
+  .product-image, .product-image-wrapper {
+    height: 250px;
+  }
+
+  .buy-button {
+    padding: 10px;
+  }
+
+  .info-card h3 {
+    font-size: 21px;
+  }
+
+  .info-card p {
+    font-size: 15px;
+  }
+
+  .alert-banner h2 {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title3X3D {
+    font-size: 32px;
+  }
+
+  .h3-3x3d {
+    font-size: 18px;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 10px;
+  }
+
+  .nav-link {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .card-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 10px;
+  }
+
+  .product-card {
+    max-width: 100%;
+  }
+
+  .product-image, .product-image-wrapper {
+    height: 220px;
+  }
+
+  .product-title {
+    font-size: 16px;
+  }
+
+  .product-description {
+    font-size: 13px;
+  }
+
+  .product-price {
+    font-size: 15px;
+  }
+
+  .buy-button {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .info-section {
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 10px;
+  }
+
+  .info-card {
+    flex: 1 1 100%;
+    padding: 20px;
+  }
+
+  .info-card h3 {
+    font-size: 20px;
+  }
+
+  .info-card p {
+    font-size: 14px;
+  }
+
+  .info-card a {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+
+  .alert-banner {
+    padding: 12px 15px;
+    gap: 8px;
+  }
+
+  .alert-banner h2 {
+    font-size: 16px;
+  }
+
+  .alert-icon {
+    font-size: 20px;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 10px;
+  }
+}
+</style>
 </head>
 <body>
 
   <!-- Хедер -->
   <div class="header-wrapper">
-<header>
-  <h1>
-    <img src="logo3x3d.png" alt="3X3D логотип" class="logo-header">
-  </h1>
-  <h3><span class="h3-3x3d">Высокодетализированная 3D печать</span></h3>
-</header>
-
-    </div>
+    <header>
+      <h1>
+        <img src="logo3x3d.png" alt="3X3D логотип" class="logo-header" />
+      </h1>
+      <h3><span class="h3-3x3d">Высокодетализированная 3D печать</span></h3>
+    </header>
+  </div>
 
   <!-- Навигация -->
   <nav class="main-nav">
     <ul>
-      <li><a href="#" class="nav-link">Главная</a></li>
-      <li><a href="#" class="nav-link">О нас</a></li>
-      <li><a href="#" class="nav-link">Контакты</a></li>
+      <li><a href="index.html" class="nav-link">Главная</a></li>
+      <li><a href="catalog.html" class="nav-link">Каталог</a></li>
+      <li><a href="coop.html" class="nav-link">Сотрудничество</a></li>
     </ul>
   </nav>
 
-  <!-- Карточки товаров -->
-  <div class="card-container">
+ <div class="alert-banner">
+  <div class="alert-icon">⚠</div>
+  <h2>Сайт полностью работает, но находится в разработке</h2>
+  <h2>Смело переходите в каталог!</h2>
+</div>
 
-    <!-- Карточка 1 -->
-    <div class="product-card">
-      <img src="https://media.cgtrader.com/variants/zVvUEwWwvj4awDtiBaUnSRvG/a26e47dab5f2d22c43d6c5ce4b4b46ecc30c70918878397cba1a10c1e35d7bfc/Fly%20Redes%20Sociais%201.jpg" alt="3D модель" class="product-image">
-      <div class="product-info">
-        <h2 class="product-title">X-Men: Wolverine</h2>
-        <p class="product-description">Уникальная 3D-печать космического робота. Высокая детализация, PLA пластик.</p>
-        <p class="product-price">Цена: 2 500 ₽</p>
-        <button class="buy-button">Купить</button>
-      </div>
+ 
+</div>
+  <!-- НОВЫЕ ИНФОРМАЦИОННЫЕ БЛОКИ -->
+  <section class="info-section">
+    <div class="info-card">
+      <h3>О нас</h3>
+      <p>
+        3X3D — это студия высокодетализированной 3D-печати. Мы создаём фигурки на заказ с использованием современных фотополимерных технологий.
+      </p>
     </div>
 
-    <!-- Карточка 2 -->
-    <div class="product-card">
-      <img src="https://netrinoimages.s3.eu-west-2.amazonaws.com/2017/01/23/435571/305876/spider_man_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_3186767.jpg" alt="Товар 1" class="product-image">
-      <div class="product-info">
-        <h2 class="product-title">Человек-Паук 2: Питер Паркер</h2>
-        <p class="product-description">3D печать высокого качества</p>
-        <p class="product-price">2 500 ₽</p>
-        <button class="buy-button">Купить</button>
-      </div>
+    <div class="info-card">
+      <h3>Доставка</h3>
+      <p>
+        Мы доставляем ваши фигурки по всей России с помощью СДЭК. Ваш заказ будет упакован надежно и придет в целости.
+      </p>
     </div>
 
-    <!-- Карточка 3 -->
-    <div class="product-card">
-      <img src="https://p.turbosquid.com/ts-thumb/oZ/T2n9zi/Ld/1/jpg/1637961610/600x600/fit_q87/c37fb151ca3816bd6ed91ff3ebd4fcc2c5ffb9b7/1.jpg" alt="Товар 2" class="product-image">
-      <div class="product-info">
-        <h2 class="product-title">R2D2 дроид</h2>
-        <p class="product-description">Детализированная фигурка</p>
-        <p class="product-price">3 000 ₽</p>
-        <button class="buy-button">Купить</button>
-      </div>
-      
+    <div class="info-card">
+      <h3>Как заказать</h3>
+      <p>
+        Выберите нужную фигурку в каталоге и перейдите в наш Telegram для оформления заказа. Процесс прост и удобен.
+      </p>
+      <a href="catalog.html">Перейти в каталог</a>
     </div>
-
-  </div>
-
-  <!-- Иконка входа -->
-  <div class="login-icon" onclick="toggleLoginPopup()">👤</div>
-
-  <!-- Окно логина/регистрации -->
-  <div id="login-popup" class="login-popup">
-    <div class="login-box">
-      <span class="close-btn" onclick="toggleLoginPopup()">×</span>
-      <h2>Вход</h2>
-      <input type="text" placeholder="Логин">
-      <input type="password" placeholder="Пароль">
-      <button>Войти</button>
-      <hr>
-      <h3>Регистрация</h3>
-      <input type="text" placeholder="Новый логин">
-      <input type="password" placeholder="Новый пароль">
-      <button>Зарегистрироваться</button>
-    </div>
-  </div>
+  </section>
 
   <!-- Футер -->
   <footer class="site-footer">
@@ -95,25 +544,18 @@
       </div>
       <div class="footer-section">
         <h4>Контакты</h4>
-        <p>Тел: +7 (999) 123-45-67</p>
-        <p>Email: info@3x3d.ru</p>
+        <p>Тел: +7 (936) 000-99-11</p>
+        <p>Email: 3x3d.ru@inbox.ru</p>
       </div>
       <div class="footer-section">
-        <h4>Мы в сети</h4>
-        <p><a href="#">ВКонтакте</a> | <a href="#">Telegram</a></p>
+        <h4>Социальные сети</h4>
+        <p><a href="https://vk.com/3x3d_official_shop">VK</a> | <a href="https://t.me/shop_3x3d">Telegram</a></p>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 3X3D, 2025. Все права защищены.</p>
     </div>
   </footer>
-
-  <script>
-    function toggleLoginPopup() {
-      const popup = document.getElementById("login-popup");
-      popup.style.display = (popup.style.display === "flex") ? "none" : "flex";
-    }
-  </script>
 
 </body>
 </html>

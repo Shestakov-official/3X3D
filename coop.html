@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3X3D - 3Д печать фигурок</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Хедер -->
+  <div class="header-wrapper">
+    <header>
+      <h1>
+        <img src="logo3x3d.png" alt="3X3D логотип" class="logo-header" />
+      </h1>
+      <h3><span class="h3-3x3d">Высокодетализированная 3D печать</span></h3>
+    </header>
+  </div>
+
+  <!-- Навигация -->
+  <nav class="main-nav">
+    <ul>
+      <li><a href="index.html" class="nav-link">Главная</a></li>
+      <li><a href="catalog.html" class="nav-link">Каталог</a></li>
+      <li><a href="coop.html" class="nav-link">Сотрудничество</a></li>
+    </ul>
+  </nav>
+
+  <!-- Иконка входа -->
+  <div class="login-icon" onclick="toggleLoginPopup()">👤</div>
+
+  <!-- Окно логина/регистрации -->
+  <div id="login-popup" class="login-popup">
+    <div class="login-box">
+      <span class="close-btn" onclick="toggleLoginPopup()">×</span>
+      <h2>Вход</h2>
+      <input type="text" placeholder="Логин" />
+      <input type="password" placeholder="Пароль" />
+      <button>Войти</button>
+      <hr />
+      <h3>Регистрация</h3>
+      <input type="text" placeholder="Новый логин" />
+      <input type="password" placeholder="Новый пароль" />
+      <button>Зарегистрироваться</button>
+    </div>
+  </div>
+
+  <!-- Футер -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3>3X3D</h3>
+        <p>Печать 3D-фигурок на заказ</p>
+      </div>
+      <div class="footer-section">
+        <h4>Контакты</h4>
+        <p>Тел: +7 (936) 000-99-11</p>
+        <p>Email: 3x3d.ru@inbox.ru</p>
+      </div>
+      <div class="footer-section">
+        <h4>Социальные сети</h4>
+        <p><a href="https://vk.com/3x3d_official_shop">VK</a> | <a href="https://t.me/shop_3x3d">Telegram</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 3X3D, 2025. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleLoginPopup() {
+      const popup = document.getElementById("login-popup");
+      popup.style.display = popup.style.display === "flex" ? "none" : "flex";
+    }
+  </script>
+
+</body>
+</html>
